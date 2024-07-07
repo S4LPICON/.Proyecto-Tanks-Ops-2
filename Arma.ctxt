@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Arma
+comment0.text=\r\n\ Clase\ base\ para\ todas\ las\ armas.\r\n\ \r\n\ @version\ 1.0\r\n
+comment1.params=municionInicial
+comment1.target=Arma(int)
+comment2.params=
+comment2.target=int\ getMunicion()
+comment3.params=municion
+comment3.target=void\ setMunicion(int)
+comment4.params=cantidad
+comment4.target=void\ recargar(int)
+comment5.params=
+comment5.target=void\ disparar()
+comment6.params=
+comment6.target=void\ crearProyectil()
+numComments=7

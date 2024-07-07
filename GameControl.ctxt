@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=GameControl
+comment1.params=
+comment1.target=GameControl()
+comment2.params=
+comment2.target=void\ checkBorders()
+comment3.params=newWorld\ player\ direction
+comment3.target=void\ switchWorld(Mapas,\ Tanque,\ java.lang.String)
+numComments=4

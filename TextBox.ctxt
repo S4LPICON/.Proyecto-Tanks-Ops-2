@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=TextBox
+comment1.params=image
+comment1.target=TextBox(greenfoot.GreenfootImage)
+comment2.params=image
+comment2.target=void\ updateText(greenfoot.GreenfootImage)
+numComments=3

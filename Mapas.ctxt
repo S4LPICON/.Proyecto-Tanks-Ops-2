@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Mapas
+comment1.params=
+comment1.target=Mapas()
+comment2.params=playera
+comment2.target=void\ aniadir(Tanque)
+comment3.params=player\ direction
+comment3.target=void\ setPlayerPosition(Tanque,\ java.lang.String)
+numComments=4
