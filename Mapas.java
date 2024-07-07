@@ -14,7 +14,6 @@ public class Mapas extends World
     }
     
     public void setPlayerPosition(Tanque player, String direction) {
-        showText("jous", 700, 500);
         if (direction.equals("left")) {
             player.setLocation(getWidth() - 1, player.getY());
         } else if (direction.equals("right")) {

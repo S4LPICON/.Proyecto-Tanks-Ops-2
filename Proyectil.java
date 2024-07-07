@@ -4,6 +4,9 @@ public class Proyectil extends Actor
 {
     private int speed;  // Velocidad de movimiento del proyectil
 
+    public Proyectil() {
+        
+    }
     public Proyectil(int velocidad) {
         this.speed = velocidad;
         

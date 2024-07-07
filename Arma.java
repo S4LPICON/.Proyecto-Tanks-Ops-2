@@ -7,9 +7,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public abstract class Arma extends Actor {
     private int municion;
+    private int bombas;
 
-    public Arma(int municionInicial) {
+    public Arma(int municionInicial, int bombasinicial) {
         this.municion = municionInicial;
+        this.bombas = bombasinicial;
     }
 
     public int getMunicion() {
@@ -20,6 +22,14 @@ public abstract class Arma extends Actor {
         this.municion = municion;
     }
 
+    public int getBombas() {
+        return bombas;
+    }
+
+    public void setBombas(int bombas) {
+        this.bombas = bombas;
+    }
+    
     public void recargar(int cantidad) {
         this.municion += cantidad;
     }
@@ -30,6 +40,13 @@ public abstract class Arma extends Actor {
             crearProyectil();
         }
     }
+    public void bomba() {
+        if (bombas > 0) {
+            bombas--;
+            crearBomba();
+        }
+    }
 
     protected abstract void crearProyectil();
+    protected abstract void crearBomba();
 }

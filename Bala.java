@@ -6,7 +6,7 @@ public class Bala extends Proyectil
 
     public Bala() {
         super(VELOCIDAD_DEFAULT);
-        setImage("bala.png");  // Asegúrate de tener una imagen de bala llamada "bala.png"
+        setImage("Proyectiles/bala.png");  // Asegúrate de tener una imagen de bala llamada "bala.png"
     }
 
     public void act() {
