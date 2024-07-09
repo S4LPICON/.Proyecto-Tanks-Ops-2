@@ -1,8 +1,10 @@
 import greenfoot.*;
 
 public class Tanque extends Actor {
-    private int speed = 5;
+    private int speed = 10;
     
+    
+    private EnemyAdm admEnemy =new EnemyAdm(this);
     private Canion canion;
     private HUID huid;
     private VidasCounter vidasCounter;
@@ -31,6 +33,7 @@ public class Tanque extends Actor {
         mover();
         getRotation();
         GameControl.checkBorders();
+        
     }
 
     private void mover() {
@@ -51,6 +54,7 @@ public class Tanque extends Actor {
 
     public void addedToWorld(World world) {
         getWorld().addObject(canion, getX(), getY());
+        getWorld().addObject(admEnemy, 500, 500);  // Agrega el crosshair al mundo, ajusta la posición según sea necesario
         getWorld().addObject(huid, 150, 50);
         getWorld().addObject(txtBox, 0, 0);
         getWorld().addObject(vidasCounter, 211, 80);

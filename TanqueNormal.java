@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class TanqueNormal extends Tanque
 {
-    
     public TanqueNormal(){
         super("tank.png", 5);
     }
@@ -16,4 +15,5 @@ public class TanqueNormal extends Tanque
     {
         // Add your action code here.
     }
+    
 }
