@@ -6,18 +6,21 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version 1.0
  */
 public class Canion extends Arma {
-    private int rotationSpeed = 4;  // Velocidad de rotación del cañón
+    private int rotationSpeed = 3;  // Velocidad de rotación del cañón
+    //private int damage;
     private Mira crosshair;  // Objeto crosshair
     private boolean isRecoiling = false;  // Bandera para controlar el estado de retroceso
     private int recoilStep = 0;  // Contador de pasos de retroceso
     private int recoilDistance = 20;  // Distancia de retroceso
-    private int recoilSpeed = 3;  // Velocidad de retroceso
+    private int recoilSpeed = 2;  // Velocidad de retroceso
     private boolean isPlayingSound = false; // Estado del sonido
     private TextBoxManager txtBox;
     private Tanque xd;
 
     public Canion(TextBoxManager txtBoxa, Tanque xda) {
-        super(50,8);  // Ejemplo: el cañón comienza con 10 municiones
+        super(50,8);
+        //damage = damag;
+          // Ejemplo: el cañón comienza con 10 municiones
         setImage("canion.png");  // Asegúrate de tener una imagen de cañón llamada "canion.png"
         crosshair = new Mira();  // Crea una instancia del crosshair
         this.txtBox = txtBoxa;

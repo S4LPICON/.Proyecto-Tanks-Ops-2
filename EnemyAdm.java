@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class EnemyAdm extends Actor
 {
     private ArrayList<Enemy> listEnemy = new ArrayList<>();
-    private int maxZombies = 15; // Máximo de zombies activos
+    private int maxZombies = 5; // Máximo de zombies activos
     private World name;
     private Tanque player;
     
@@ -60,7 +60,7 @@ public class EnemyAdm extends Actor
                     break;
             }
             
-            Enemy zombie = new Enemy(player, this); // Crea un nuevo zombie
+            Zombie zombie = new Zombie(player, this, 45, 1); // Crea un nuevo zombie
             name.addObject(zombie, x, y); // Agrega el zombie al mundo
             listEnemy.add(zombie); // Agrega el zombie a la lista
         }
@@ -68,6 +68,7 @@ public class EnemyAdm extends Actor
     
     public void removeEnemy(Enemy zombie) {
         getWorld().removeObject(zombie); // Elimina el zombie del mundo
+        System.out.println("zombie eliminado");
         listEnemy.remove(zombie); // Elimina el zombie de la lista
         // Genera un nuevo zombie para mantener el máximo de 15 zombies activos
         spawnRandomZombie();

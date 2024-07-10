@@ -9,23 +9,31 @@ public class GameControl extends World{
     public static MapaSub2 mapa2;
     public static MapaSub3 mapa3;
     public static MapaSub4 mapa4;
+    
+    //variables del jugador para que los zombies lo puedan seguir
     public static int mapa1Exit_x,mapa1Exit_y;
     public static int mapa2Exit_x,mapa2Exit_y;
     public static int mapa3Exit_x,mapa3Exit_y;
     public static int mapa4Exit_x,mapa4Exit_y;
+    
+    private Antena LaAntena = new Antena();
 
     public GameControl() {
         super(1,1,1);
         // Asigna el tanque al primer mapa
         player = new Tanque("tank.png");
-        mapa1 = new MapaSub1(player);
-        Greenfoot.setWorld(mapa1);
+        
+        mapa1 = new MapaSub1();
         mapa2 = new MapaSub2();
         mapa3 = new MapaSub3();
         mapa4 = new MapaSub4();
+        
+        Greenfoot.setWorld(mapa1);
+        
         mpActual = 1;
-      
-        mapa1.addObject(player, mapa1.getWidth() / 2, mapa1.getHeight() / 2);
+        
+        //mapa1.addObject(player, mapa1.getWidth() / 2, mapa1.getHeight() / 2);
+        mapa1.addObject(player, 600, 600);
     }
     
     
@@ -116,4 +124,5 @@ public class GameControl extends World{
             player.setLocation(x, newWorld.getHeight() - 1);
         }
     }
+    
 }

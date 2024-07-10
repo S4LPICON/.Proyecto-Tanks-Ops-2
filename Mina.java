@@ -13,7 +13,7 @@ public class Mina extends Proyectil
     private boolean exploting = false; // Flag para saber si está explotando
     
     public Mina(){
-        super();
+        super(27);
         setImage("Proyectiles/mina.png"); //la imagen de la mina cmo tal
     }
     

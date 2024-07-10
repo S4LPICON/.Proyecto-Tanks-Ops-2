@@ -1,13 +1,15 @@
 #BlueJ class context
 comment0.target=Proyectil
-comment1.params=
-comment1.target=Proyectil()
-comment2.params=velocidad
-comment2.target=Proyectil(int)
+comment1.params=damage
+comment1.target=Proyectil(int)
+comment2.params=velocidad\ damage
+comment2.target=Proyectil(int,\ int)
 comment3.params=
-comment3.target=void\ act()
+comment3.target=int\ getDamage()
 comment4.params=
-comment4.target=void\ mover()
+comment4.target=void\ act()
 comment5.params=
-comment5.target=void\ verificarBordes()
-numComments=6
+comment5.target=void\ mover()
+comment6.params=
+comment6.target=void\ verificarColisiones()
+numComments=7

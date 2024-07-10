@@ -1,7 +1,7 @@
 import greenfoot.*;
 
 public class Tanque extends Actor {
-    private int speed = 10;
+    private int speed = 5;
     
     
     private EnemyAdm admEnemy =new EnemyAdm(this);
@@ -33,7 +33,7 @@ public class Tanque extends Actor {
         mover();
         getRotation();
         GameControl.checkBorders();
-        
+        ComprobarColisiones();
     }
 
     private void mover() {
@@ -54,12 +54,46 @@ public class Tanque extends Actor {
 
     public void addedToWorld(World world) {
         getWorld().addObject(canion, getX(), getY());
-        getWorld().addObject(admEnemy, 500, 500);  // Agrega el crosshair al mundo, ajusta la posición según sea necesario
+        getWorld().addObject(admEnemy, -5, -5);  // Agrega el crosshair al mundo, ajusta la posición según sea necesario
         getWorld().addObject(huid, 150, 50);
         getWorld().addObject(txtBox, 0, 0);
         getWorld().addObject(vidasCounter, 211, 80);
     }
     
     
+    public void ComprobarColisiones() {
+        Actor colisionado=getOneIntersectingObject(Construccion.class);
+        
+        if( isTouching(Extra.class)) {
+        colisionado = getOneIntersectingObject(Extra.class);
+        }
+        
+        if (colisionado != null) {
+            int dx = getX() - colisionado.getX();
+            int dy = getY() - colisionado.getY();
+            
+            int retroceso = 15; // Distancia fija de retroceso
+            
+            // Determinar la dirección de la colisión
+            if (Math.abs(dx) > Math.abs(dy)) {
+                if (dx > 0) {
+                    // Colisión desde la izquierda
+                    setLocation(getX() + retroceso, getY());
+                } else {
+                    // Colisión desde la derecha
+                    setLocation(getX() - retroceso, getY());
+                }
+            } else {
+                if (dy > 0) {
+                    // Colisión desde arriba
+                    setLocation(getX(), getY() + retroceso);
+                } else {
+                    // Colisión desde abajo
+                    setLocation(getX(), getY() - retroceso);
+                }
+            }
+        }
     
+}
+
 }

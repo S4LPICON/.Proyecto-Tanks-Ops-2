@@ -39,5 +39,4 @@ public class Mapas extends World
         }
     }
     
-   
 }

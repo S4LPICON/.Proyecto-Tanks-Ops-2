@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Zombie
+comment1.params=player\ admn\ vida\ speed
+comment1.target=Zombie(Tanque,\ EnemyAdm,\ int,\ int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=imagePaths\ frameDuration
+comment3.target=void\ animarCaminar(java.lang.String[],\ int)
+comment4.params=
+comment4.target=void\ aplayDeadAnimation()
+numComments=5
