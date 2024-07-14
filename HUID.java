@@ -9,15 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class HUID extends Actor
 {
     
-    
     public HUID(){
-        setImage("HUID/info.png");  // Asegúrate de tener una imagen de bala llamada "bullet.png"
+        setImage("HUID/Barras.png");  // Asegúrate de tener una imagen de bala llamada "bullet.png"
+    }  
         
-    }
     
-    public void act()
-    {
-    }
-    
-    
+    public void act(){}
 }

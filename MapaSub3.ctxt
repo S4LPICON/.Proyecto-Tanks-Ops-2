@@ -4,4 +4,6 @@ comment1.params=
 comment1.target=MapaSub3()
 comment2.params=awebado
 comment2.target=MapaSub3(Tanque)
-numComments=3
+comment3.params=
+comment3.target=void\ AniadirObjetos()
+numComments=4

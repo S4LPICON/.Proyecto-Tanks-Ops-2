@@ -1,18 +1,8 @@
 #BlueJ class context
 comment0.target=Canion
 comment0.text=\r\n\ Clase\ para\ el\ ca\u00F1\u00F3n\ del\ tanque.\r\n\ \r\n\ @version\ 1.0\r\n
-comment1.params=txtBoxa\ xda
-comment1.target=Canion(TextBoxManager,\ Tanque)
-comment2.params=world
-comment2.target=void\ addedToWorld(greenfoot.World)
-comment3.params=
-comment3.target=void\ act()
-comment4.params=
-comment4.target=void\ controlCanion()
-comment5.params=
-comment5.target=void\ crearProyectil()
-comment6.params=
-comment6.target=void\ crearBomba()
-comment7.params=
-comment7.target=void\ handleRecoil()
-numComments=8
+comment1.params=xda\ txtBox\ municionInicial\ bombasinicial
+comment1.target=Canion(Tanque,\ TextBoxManager,\ int,\ int)
+comment2.params=
+comment2.target=void\ crearProyectil()
+numComments=3

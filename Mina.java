@@ -13,7 +13,7 @@ public class Mina extends Proyectil
     private boolean exploting = false; // Flag para saber si está explotando
     
     public Mina(){
-        super(27);
+        super(1);
         setImage("Proyectiles/mina.png"); //la imagen de la mina cmo tal
     }
     
@@ -24,22 +24,22 @@ public class Mina extends Proyectil
             // Comprobar si la mina está tocando a algún actor que no sea una instancia de "Mira"
             if (isTouching(Actor.class)) {
                 Actor actor = getOneIntersectingObject(Actor.class);
-                if (actor != null && !(actor instanceof Mira)) {
+                if (!(actor instanceof Mira)&& !(actor instanceof Arma)) { // primera condicion anterior: actor != null && 
                     explotar();
-                    //JUSTO AQUI SE PONDRIA EL DANIO
+                    
                 }
             }
         }
     }
 
-    private void explotar() {
+    public void explotar() {
         // Iniciar la animación de explosión
         exploting = true;
     }
 
     private void playExplosionAnimation() {
         // Cambiar la imagen cada ciertos frames para la animación
-        if (frame % 3 == 0) { // Cambia la imagen cada 5 frames (ajusta según necesites)
+        if (frame % 3 == 0) { // Cambia la imagen cada  frames (ajusta según necesites)
             if (explosionIndex < 12) {
                 setImage("Proyectiles/Explosion/" + (explosionIndex + 1) + ".png");
                 explosionIndex++;

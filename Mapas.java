@@ -28,14 +28,16 @@ public class Mapas extends World
     }
     
     public void setPlayerPosition(Enemy player, String direction) {
+        int randX = Greenfoot.getRandomNumber(1340);
+        int randY = Greenfoot.getRandomNumber(670);
         if (direction.equals("left")) {
-            player.setLocation(getWidth() - 11, player.getY());
+            player.setLocation(getWidth() - 11, randY);
         } else if (direction.equals("right")) {
-            player.setLocation(11, player.getY());
+            player.setLocation(11, randY);
         } else if (direction.equals("up")) {
-            player.setLocation(player.getX(), getHeight() - 11);
+            player.setLocation(randX, getHeight() - 11);
         } else if (direction.equals("down")) {
-            player.setLocation(player.getX(), 11);
+            player.setLocation(randX, 11);
         }
     }
     

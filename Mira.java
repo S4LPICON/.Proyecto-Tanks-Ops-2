@@ -14,7 +14,7 @@ public class Mira extends Actor
      */
     
     public Mira(){
-        setImage("crossshair.png");  // Asegúrate de tener una imagen de bala llamada
+        setImage("HUID/crossshair.png");  // Asegúrate de tener una imagen de bala llamada
     }
     
     public void act()

@@ -9,7 +9,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Arbol extends Extra
 {
     public Arbol(){
-        setImage("Extra/arbol.png");
+        GreenfootImage nimage = new GreenfootImage("Extra/tree1.png"); // Cargar una imagen
+        nimage.scale(120, 120); // Escalar la imagen a nuevas dimensiones
+        setImage(nimage);
     }
     public void act()
     {

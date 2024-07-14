@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=BarraIndicadora
+comment1.params=x\ M
+comment1.target=BarraIndicadora(int,\ greenfoot.Actor)
+comment2.params=x\ M\ color
+comment2.target=BarraIndicadora(int,\ greenfoot.Actor,\ greenfoot.Color)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ actualizarBarra()
+comment5.params=x\ y
+comment5.target=void\ fijar(int,\ int)
+comment6.params=x
+comment6.target=void\ actualizarVida(int)
+numComments=7
