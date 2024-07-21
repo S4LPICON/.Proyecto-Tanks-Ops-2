@@ -12,6 +12,12 @@ public class Tanque extends Actor {
     private HUID huid;
     private TextBoxManager txtBox;
     
+    private int kills =0;
+    private boolean isdead = false;
+    
+    private GreenfootSound moveSound = new GreenfootSound("tankavanzando.wav");//
+    private boolean isPlaying = false;
+    
     private boolean cooldownDeltaAttack = false;
     private int cooldownAttackTime =0;
     private int cooldownAttack=(60 * 10); // 60 = 1seg
@@ -21,6 +27,7 @@ public class Tanque extends Actor {
     private int cooldown=120; // 60 = 1seg
     private int cantAumento = 10; //cantidad que se le suma al jugador cada cierto tiempo
     private int escudoMax = escudo;
+    private int vidaMax = vida;
     
     private BarraIndicadora barravida = new BarraIndicadora(vida, this);
     private BarraIndicadora barraescudo = new BarraIndicadora(escudo, this, Color.LIGHT_GRAY);
@@ -34,33 +41,30 @@ public class Tanque extends Actor {
         nimage.scale(90, 50); // Escalar la imagen a nuevas dimensiones
         setImage(nimage);
         txtBox = new TextBoxManager();
-        canion = new Canion(this,txtBox, 50,8);
+        canion = new Canion(this,txtBox, 120,9);
         huid = new HUID();
-        //vidasCounter = new VidasCounter();
+        moveSound.setVolume(50);
     }
     
     public Tanque(String imagen, Canion arma) {
         setImage(imagen);
         txtBox = new TextBoxManager();
-        canion = arma;//new Canion(txtBox, this);
+        canion = arma;
         huid = new HUID();
-        //vidasCounter = new VidasCounter();
     }
     
     public Tanque(String imagen, LanzaLlamas arma) {
         setImage(imagen);
         txtBox = new TextBoxManager();
-        lanzallamas = new LanzaLlamas(this,txtBox, 500, 8);//new Canion(txtBox, this);
+        lanzallamas = new LanzaLlamas(this,txtBox, 500, 8);
         huid = new HUID();
-        //vidasCounter = new VidasCounter();
     }
     
     public Tanque(String imagen, Escopeta arma) {
         setImage(imagen);
         txtBox = new TextBoxManager();
-        escopeta = new Escopeta(this,txtBox, 98, 80);  //lanzallamas = new LanzaLlamas(txtBox,this, 500, 8);//new Canion(txtBox, this);
+        escopeta = new Escopeta(this,txtBox, 98, 80);
         huid = new HUID();
-        //vidasCounter = new VidasCounter();
     }
     
     public Tanque(String imagen, int velocidad) {
@@ -69,35 +73,65 @@ public class Tanque extends Actor {
         txtBox = new TextBoxManager();
         canion = new Canion(this,txtBox, 50,8);
         huid = new HUID();
-        //vidasCounter = new VidasCounter();
     }
 
-    public void act() {
-        //getWorld().showText("X"+listEnemy.size(), 500,500);
-        mover();
-        getRotation();
-        GameControl.checkBorders();
-        ComprobarColisiones();
-        recuperarEscudoCada();
-        MostrarInfoEnPantalla();
-        cooldownUltimoAtaque();
+    public void aumentarkills(){
+        this.kills++;
     }
-    public void despuesDeQueMuere(){
-        //haga cualqueir mamada
+    
+    public void act() {
+        vefMuerte();
+        if(!isdead){
+            mover();
+            getRotation();
+            vefMuerte();
+            GameControl.checkBorders();
+            ComprobarColisiones();
+            recuperarEscudoCada();
+            //MostrarInfoEnPantalla(); // opcion util para el desarrollo
+            cooldownUltimoAtaque();
+        }
+        
+    }
+    
+    public void setMuniToMax(){
+        if(canion != null){
+            canion.munMax();
+        }else if(lanzallamas != null){
+            lanzallamas.munMax();
+        }else if(escopeta != null){
+            escopeta.munMax();
+        }
+    }
+    
+    public void vefMuerte(){
+        if(this.vida <= 0){
+            // muere el jugador
+            isdead = true;
+            moveSound.stop();
+            Item a = new Item("gameover.png");
+            getWorld().addObject(a, 675, 337);
+            getWorld().showText("Has matado "+ this.kills + " Zombies", 675, 500);
+            getWorld().showText("Tu Puntage fue de "+ this.puntuacion, 675, 550);
+            getWorld().showText("Has sobrevivido "+ EnemyAdm.ronda + " rondas.", 675, 600);
+            Greenfoot.stop();
+        }
+        if(this.vida <= 0 && isdead){
+            Greenfoot.playSound("gameover.mp3");
+        }
     }
     
     private void MostrarInfoEnPantalla(){
         getWorld().showText("esc "+escudo,300,500);
         getWorld().showText("vid "+vida,600,500);
         getWorld().showText("coolEsc"+cooldownEscudo,800,500);
-        getWorld().showText("escmax"+escudoMax,1000,500);//cooldownDeltaAttack
+        getWorld().showText("escmax"+escudoMax,1000,500);
         getWorld().showText("timer "+cooldownAttackTime,20,400);
         getWorld().showText("coolattac"+cooldownDeltaAttack,20,500);
     }
     
     public void recuperarEscudoCada(){
-        if(!cooldownEscudo && !cooldownDeltaAttack && escudo < 75){//&& escudo < escudo-5){
-            System.out.println("Se recupero escudo + "+cantAumento);
+        if(!cooldownEscudo && !cooldownDeltaAttack && escudo < 75){
             aumentarEscudo(cantAumento);
             cooldownTime =0;
             cooldownEscudo=true;
@@ -123,12 +157,21 @@ public class Tanque extends Actor {
     public void cooldownUltimoAtaque(){
         if(!cooldownDeltaAttack){
             cooldownAttackTime =0;
-            //cooldownDeltaAttack=true;
         }else if(cooldownAttackTime >cooldownAttack){
             cooldownDeltaAttack=false;
         }else{
             cooldownAttackTime++;
         }
+    }
+    
+    public void aumentarVida(int cant){
+        if(vida < vidaMax - cant){
+            this.vida += cant;
+        }else{
+            this.vida += (vidaMax - vida);
+        }
+        barravida.actualizarVida(vida);
+        barravida.actualizarBarra();
     }
     
     public void quitarVida(int cant){
@@ -161,12 +204,25 @@ public class Tanque extends Actor {
     private void mover() {
         if (Greenfoot.isKeyDown("w")) {
             move(speed);
+            if (!isPlaying && !isdead) {
+                moveSound.playLoop(); // Reproduce el sonido en loop
+                isPlaying = true;
+            }
+        } else if(Greenfoot.isKeyDown("s")){
+            move(-speed);
+            if (!isPlaying && !isdead) {
+                moveSound.playLoop(); // Reproduce el sonido en loop
+                isPlaying = true;
+            }
+        } else {
+            if (isPlaying) {
+                moveSound.stop(); // Detiene el sonido
+                isPlaying = false;
+            }
         }
+        
         if (Greenfoot.isKeyDown("a")) {
             turn(-5);
-        }
-        if (Greenfoot.isKeyDown("s")) {
-            move(-speed);
         }
         if (Greenfoot.isKeyDown("d")) {
             turn(5);
@@ -185,8 +241,6 @@ public class Tanque extends Actor {
         }else if(escopeta != null){
             escopeta.setLocation(getX(), getY());
         }
-        
-        
     }
     
     public void addedToWorld(World world) {
@@ -204,7 +258,7 @@ public class Tanque extends Actor {
         getWorld().addObject(munib, 1264, 650);
         getWorld().addObject(puntos, 74, 645);
         getWorld().addObject(txtBox, 0, 0);
-        //getWorld().addObject(vidasCounter, 211, 80);
+        
         getWorld().addObject(barravida, 109, 22);
         getWorld().addObject(barraescudo, 109, 55);
     }
@@ -241,7 +295,5 @@ public class Tanque extends Actor {
                 }
             }
         }
-    
-}
-
+    }
 }

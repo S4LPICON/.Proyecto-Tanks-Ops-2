@@ -18,9 +18,6 @@ public class BarraIndicadora extends Actor
         this.color = Color.RED;
         imagen.setColor(Color.RED);
         imagen.fillRect(0, 0,114, 15);
-        //imagen.setColor(Color.BLACK);
-        //imagen.setFont(new Font("Public Pixel", 12));
-        //imagen.drawString(vida+"", 8, 18);
         setImage(imagen);
     }
     
@@ -33,18 +30,11 @@ public class BarraIndicadora extends Actor
         this.color = color;
         imagen.setColor(color);
         imagen.fillRect(0, 0,114, 15);
-        //imagen.setColor(Color.BLACK);
-        //imagen.setFont(new Font("Public Pixel", 12));
-        //imagen.drawString(vida+"", 8, 18);
         setImage(imagen);
     }
-    public void act()
-    {
     
-    }
     public void actualizarBarra(){
         int ancho = (int)((dañoRecibido / (double)vidaMax) * imagen.getWidth());
-        //if(vida<100) center=15;
         if (dañoRecibido>=vidaMax) {
          ancho=114;
          vida=0;
@@ -57,9 +47,6 @@ public class BarraIndicadora extends Actor
         
         imagen.setColor(Color.WHITE);
         imagen.fillRect(114-ancho, 0, 114, 15);
-        
-        //imagen.setFont(new Font("Public Pixel", 12));
-        //imagen.drawString(vida+"", center, 18);
         setImage(imagen);
     }
     public void fijar (int x, int y){

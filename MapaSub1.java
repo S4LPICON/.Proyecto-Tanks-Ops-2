@@ -11,24 +11,18 @@ public class MapaSub1 extends Mapas {
     private Caja caja2 = new Caja();
     private Caja caja3 = new Caja();
     
-    private Antena antena1;
-    private Generador gen1;
-    
     
     public MapaSub1() { 
         super();
-        //arbol1 =  new Arbol();       
-        antena1 = new Antena();
-        gen1 = new Generador();
         setBackground("Mapa/MapaSub1.png");
         AniadirObjetos();
     }
     
-    public MapaSub1(Tanque awebado) { 
+    public MapaSub1(Tanque player) { 
         super();
-        tanque = awebado;
+        tanque = player;
         setBackground("Mapa/MapaSub1.png");
-        addObject(awebado, 150, 150);
+        addObject(player, 150, 150);
         addObject(arbol1, 500, 500);
     }
     

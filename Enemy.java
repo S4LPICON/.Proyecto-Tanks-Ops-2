@@ -52,11 +52,6 @@ public abstract class Enemy extends Actor {
         this.danio = nDanio;
     }
     
-    
-    public abstract void animarCaminar(int frameDuration);
-    public abstract void aplayDeadAnimation();
-    public abstract void hurtAnimation();
-    
     public void IaEnemy(){
         if (!isDead) {
             PersecucionControl();
@@ -68,13 +63,12 @@ public abstract class Enemy extends Actor {
     }
 
     
-    public void perseguir(int x, int y) {
+    public void perseguirSiSeFueAOtroMundo(int x, int y) {
         this.turnTowards(x, y);
         move(speed *2);
     }
 
     public void morir() {
-        //getWorld().removeObject(this);
         isDead = true;
         deadIndex = 0;
         frame = 0;
@@ -88,6 +82,7 @@ public abstract class Enemy extends Actor {
     public void danioJugador(){
         if(!isAttackCooldown && player.getEscudo() <=0){
             player.quitarVida(this.danio);
+            //aqui podria reproducir un sonido de ataque
             cooldownTime =0;
             isAttackCooldown=true;
         }else if(!isAttackCooldown && player.getEscudo() >0){
@@ -106,8 +101,8 @@ public abstract class Enemy extends Actor {
         int x = enemy.getX();
         int y = enemy.getY();
 
-        newWorld.aniadir(enemy); // Añadir el enemigo al nuevo mundo
-        newWorld.setPlayerPosition(enemy, direction);
+        newWorld.aniadir(enemy); // Aniadir el enemigo al nuevo mundo
+        newWorld.setEnemyPosition(enemy, direction);
 
         // Ajustar posición si está tocando otro enemigo
         if (enemy.isTouching(Enemy.class)) {
@@ -119,11 +114,12 @@ public abstract class Enemy extends Actor {
         if (isTouching(Proyectil.class)) {
             Proyectil proyectil = (Proyectil) getOneIntersectingObject(Proyectil.class);
             if (proyectil != null) {
-                System.out.println("imhere");
                 //Animacion de recibir danio
                 isDamageRecibe = true;
                 takeDamage(proyectil.getDamage()); // Reducir la vida según el daño del proyectil
+                if(!(proyectil instanceof Mina)){
                 proyectil.getWorld().removeObject(proyectil);
+                }
             }
         }
     }
@@ -131,13 +127,13 @@ public abstract class Enemy extends Actor {
     public void PersecucionControl() {
         if (GameControl.mpActual != mapa) {
             if (mapa == 1) {
-                perseguir(GameControl.mapa1Exit_x, GameControl.mapa1Exit_y);
+                perseguirSiSeFueAOtroMundo(GameControl.mapa1Exit_x, GameControl.mapa1Exit_y);
             } else if (mapa == 2) {
-                perseguir(GameControl.mapa2Exit_x, GameControl.mapa2Exit_y);
+                perseguirSiSeFueAOtroMundo(GameControl.mapa2Exit_x, GameControl.mapa2Exit_y);
             } else if (mapa == 3) {
-                perseguir(GameControl.mapa3Exit_x, GameControl.mapa3Exit_y);
+                perseguirSiSeFueAOtroMundo(GameControl.mapa3Exit_x, GameControl.mapa3Exit_y);
             } else if (mapa == 4) {
-                perseguir(GameControl.mapa4Exit_x, GameControl.mapa4Exit_y);
+                perseguirSiSeFueAOtroMundo(GameControl.mapa4Exit_x, GameControl.mapa4Exit_y);
             }
         } else {
             perseguirEnElMismoMundo();
@@ -156,6 +152,7 @@ public abstract class Enemy extends Actor {
         vida -= damage;
         if (vida <= 0 && !isDead) {
             player.setPuntuacion(25);
+            player.aumentarkills();
             morir(); // Iniciar el proceso de muerte si la vida llega a cero o menos
         }
     }
@@ -235,5 +232,41 @@ public abstract class Enemy extends Actor {
             }
         }
     }
+    
+    public void proItem(){
+        int randomNumber = Greenfoot.getRandomNumber(100);
+        
+        if (randomNumber < 5) {
+            // 5% de probabilidad (0-4)
+            arma();
+        } else if (randomNumber < 15) {
+            // 10% de probabilidad (5-14)
+            Salud();
+        } else if (randomNumber < 35) {
+            // 20% de probabilidad (15-34)
+            munMax();
+        } else {
+            // 65% de probabilidad de no hacer nada (35-99)
+        }
     }
+    
+    public void munMax() {
+        Item i = new Item(this.player,"munMax.png", "mun");
+        getWorld().addObject(i, getX(), getY());
+    }
+
+    public void Salud() {
+        Item i = new Item(this.player,"vida.png", "salud");
+        getWorld().addObject(i, getX(), getY());
+    }
+
+    public void arma() {
+        Item i = new Item(this.player,"arma.png", "arma");
+        getWorld().addObject(i, getX(), getY());
+    }
+    
+    public abstract void animarCaminar(int frameDuration);
+    public abstract void aplayDeadAnimation();
+    public abstract void hurtAnimation();
+}
 

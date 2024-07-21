@@ -7,7 +7,7 @@ public class MapaSub2 extends Mapas {
     
     private Arbol arbol1 = new Arbol();
     private Arbol arbol2 = new Arbol();
-    private Arbol arbol3 = new Arbol();//1124 136
+    private Arbol arbol3 = new Arbol();
     
     private Casa casa1 = new Casa();
     
@@ -21,10 +21,10 @@ public class MapaSub2 extends Mapas {
         AniadirObjetos();
     }
     
-    public MapaSub2(Tanque awebado) { 
+    public MapaSub2(Tanque player) { 
         super();
         setBackground("Mapa/MapaSub2.png");
-        addObject(awebado, 500, 500);
+        addObject(player, 500, 500);
     }
     
     public void AniadirObjetos(){
@@ -38,7 +38,5 @@ public class MapaSub2 extends Mapas {
         addObject(casa1, 1124, 136);
         
         addObject(metal1, 1061, 550);
-        
-        
     }
 }

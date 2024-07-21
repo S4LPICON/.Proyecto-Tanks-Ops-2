@@ -51,7 +51,7 @@ public abstract class Proyectil extends Actor
             getWorld().removeObject(this);
         } else if(isTouching(Actor.class)){
             if(isTouching(Construccion.class) || isTouching(Extra.class)){
-                getWorld().removeObject(this); // como toca el enemigo se elimina el objeto antes de hacer danio
+                getWorld().removeObject(this); 
             }
         }
     }

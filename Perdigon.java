@@ -12,19 +12,14 @@ public class Perdigon extends Proyectil
 
     public Perdigon() {
         super(VELOCIDAD_DEFAULT, 5, "Proyectiles/Perdigon/");
-        //setImage("Proyectiles/perdigon.png");  // Asegúrate de tener una imagen de bala llamada "bala.png"
     }
 
-    //IMPORTANTE ANIMACION DE CUANTO CHOCA CON UN ENEMIGO O CONSTRUCCION
-    public void explotar() {
-        // Iniciar la animación de explosión
-        //exploting = true;
-    }
+    //no esta implementado
+    public void explotar() {}
     
     
     public void act() {
         super.act();
-        // Aquí puedes agregar más comportamientos específicos para la bala si es necesario
     }
     
 }

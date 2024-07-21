@@ -21,10 +21,10 @@ public class MapaSub3 extends Mapas {
     }
     
     
-    public MapaSub3(Tanque awebado) { 
+    public MapaSub3(Tanque player) { 
         super();
         setBackground("Mapa/MapaSub3.png");
-        addObject(awebado, 500, 500);
+        addObject(player, 500, 500);
     }
     
     public void AniadirObjetos(){

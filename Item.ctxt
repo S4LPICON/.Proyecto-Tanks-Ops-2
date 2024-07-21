@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Item
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Item\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=juga\ img\ act1ion
+comment1.target=Item(Tanque,\ java.lang.String,\ java.lang.String)
+comment2.params=img
+comment2.target=Item(java.lang.String)
+comment3.params=
+comment3.target=void\ act()
+numComments=4

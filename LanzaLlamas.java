@@ -1,11 +1,9 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; 
 
-/**
- * Write a description of class LanzaLlamas here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+
+// SE PODRIA USAR PERO FALTA MODIFICAR LAS DIMENCIONES DEL TANQUE CUANDO TIENE ESTE CANION, ADEMAS DE
+// ASIGANAR UNA IMAGEN AL CANION Y A SU RESPECTIVO PROYECTIL
+
 public class LanzaLlamas extends Arma
 {
     public LanzaLlamas(Tanque xda,TextBoxManager txtBoxa, int municionInicial, int bombasinicial){

@@ -9,6 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Puntuacion extends HUID
 {
     public Puntuacion(){
-        setImage("HUID/puntos.png");  // Asegúrate de tener una imagen de bala llamada "bullet.png"
+        setImage("HUID/puntos.png"); 
     } 
 }

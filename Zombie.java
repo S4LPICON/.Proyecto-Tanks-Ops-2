@@ -8,6 +8,11 @@ public class Zombie extends Enemy {
     
     int indexHurt =0;
     int frameHurt=0;
+    
+    private boolean hurtsound = false;
+    
+    private boolean deadsound = false;
+    
     public Zombie(Tanque player, EnemyAdm admn, int vida, int speed) {
         super(player,admn,vida,speed, 10);
         
@@ -16,24 +21,22 @@ public class Zombie extends Enemy {
 
     public void act() {
         super.act();
-        //getWorld().showText("Damaging " + isDamageRecibe, getX(), getY()-15);
-        //animarCaminar(frameDuration);
-        
-        //animarCaminar(WalkAnimation, 10);
-        //aplayDeadAnimation();
-        //IaEnemy();
     }
     public void addedToWorld(){
         getWorld().showText("Damaging " + isDamageRecibe, 500, 500);
     }
     
-    
     public void hurtAnimation(){
+        if(!hurtsound){
+            Greenfoot.playSound("zombiehurt.wav");
+        }
+        hurtsound = true;
         if (frameHurt % 3 == 0) {
             if (indexHurt < 16 && !isDead) {
                 setImage("Enemigos/Zombie/ZombieHurtAnimation/" + (indexHurt+ 1) + ".png");
                 indexHurt++;
             }else{
+                hurtsound = false;
                 isDamageRecibe = false;
                 indexHurt =0;
                 frameHurt =0;
@@ -57,9 +60,14 @@ public class Zombie extends Enemy {
         }
     }
     public void aplayDeadAnimation() {
+        
+        if(!deadsound){
+            Greenfoot.playSound("zombiedead.wav");
+        }
+        deadsound = true;
         if (frame % 3 == 0) {
             if (deadIndex < 12) {
-                setImage("Enemigos/Zombie/ZombieDeadAnimation/" + (deadIndex + 1) + ".png");
+                setImage("Proyectiles/Explosion/" + (deadIndex + 1) + ".png");
                 deadIndex++;
             }
         }
@@ -69,6 +77,7 @@ public class Zombie extends Enemy {
         if (deadIndex >= 12) {
             World world = getWorld();
             if (this != null && world != null) {
+                proItem();// al morir ejecuta este metodo de enemy que es el encargado del spawn de items
                 world.removeObject(this); // Eliminar el zombie del mundo
             }
         }

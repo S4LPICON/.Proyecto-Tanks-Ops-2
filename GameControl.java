@@ -1,10 +1,6 @@
 import greenfoot.*;
 import java.util.ArrayList;
 
-
-
-// Aca en game control debo crear un objeto de tipo Ronda control, debe configurar las rondas venidera
-
 public class GameControl extends World{
     public static int mpActual;  // Estado del mundo actual
     public static int municion = 500;
@@ -13,7 +9,12 @@ public class GameControl extends World{
     public static LanzaLlamas lanzallamas;
     public static Escopeta escopeta;
     
+    //Botones del menu play, controls, quit
+    private Botton bt1 = new Botton("HUID/Play Button.png", "play");
+    private Botton bt2 = new Botton("HUID/Controls Button.png", "controls");
+    private Botton bt3 = new Botton("HUID/Quit Button.png", "quit");
     
+    //instancia de los mapas para tenerlos en memoria
     public static MapaSub1 mapa1;
     public static MapaSub2 mapa2;
     public static MapaSub3 mapa3;
@@ -25,33 +26,37 @@ public class GameControl extends World{
     public static int mapa3Exit_x,mapa3Exit_y;
     public static int mapa4Exit_x,mapa4Exit_y;
     
-    private Antena LaAntena = new Antena();
-    
+    //musica del menu
+    public static GreenfootSound MusicaMenu = new GreenfootSound("menugame.mp3");
     private int xd=0;
 
     public GameControl() {
-        super(1,1,1);
+        super(1000,600,1);
         player = new Tanque("Tanques/tank.png");
-        
+        setBackground("menu.jpeg");
+        aniadirBottones();
         mapa1 = new MapaSub1();
         mapa2 = new MapaSub2();
         mapa3 = new MapaSub3();
         mapa4 = new MapaSub4();
-        
-        Greenfoot.setWorld(mapa3);
-        
-        mpActual = 3;
-        
-        //mapa1.addObject(player, mapa1.getWidth() / 2, mapa1.getHeight() / 2);
-        mapa3.addObject(player, 600, 600);
+        MusicaMenu.playLoop();
     }
     
+    public static void iniciar(){
+        MusicaMenu.stop();
+        Greenfoot.setWorld(mapa1);
+        mpActual = 1;
+        mapa1.addObject(player, 600, 600);
+    }
+    
+    // Encargado de detectar las cordenadas por donde el jugador sale de la pantalla para enviarlo a otro mapa
     public static void checkBorders() {
         int x = player.getX();
         int y = player.getY();
         int worldWidth = player.getWorld().getWidth();
         int worldHeight = player.getWorld().getHeight();
 
+    
         if (x >= worldWidth - 1) { // derecha
             if (mpActual == 1) {
                 mapa1Exit_x = player.getX();
@@ -134,4 +139,10 @@ public class GameControl extends World{
         }
     }
     
+    //botones del menu
+    public void aniadirBottones(){
+        addObject(bt1, 500, 300);
+        addObject(bt2, 500, 370);
+        addObject(bt3, 500, 440);
+    }
 }

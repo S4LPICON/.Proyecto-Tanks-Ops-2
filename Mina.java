@@ -18,6 +18,10 @@ public class Mina extends Proyectil
     }
     
     public void act() {
+        verificador();
+    }
+
+    public void verificador(){
         if (exploting) {
             playExplosionAnimation();
         } else {
@@ -26,14 +30,14 @@ public class Mina extends Proyectil
                 Actor actor = getOneIntersectingObject(Actor.class);
                 if (!(actor instanceof Mira)&& !(actor instanceof Arma)) { // primera condicion anterior: actor != null && 
                     explotar();
-                    
                 }
             }
         }
     }
-
+    
     public void explotar() {
         // Iniciar la animación de explosión
+        Greenfoot.playSound("bombexplote.mp3");
         exploting = true;
     }
 

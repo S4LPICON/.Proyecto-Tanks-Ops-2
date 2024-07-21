@@ -18,10 +18,10 @@ public class MapaSub4 extends Mapas {
         AniadirObjetos();
     }
     
-    public MapaSub4(Tanque awebado) { 
+    public MapaSub4(Tanque player) { 
         super();
         setBackground("Mapa/MapaSub1.png");
-        addObject(awebado, 500, 500);
+        addObject(player, 500, 500);
     }
 
     public void AniadirObjetos(){

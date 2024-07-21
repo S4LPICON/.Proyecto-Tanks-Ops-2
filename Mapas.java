@@ -4,17 +4,19 @@ public class Mapas extends World
 {
     public Mapas()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1345, 675, 1); 
+        super(1300, 675, 1); 
     }
     
-    public void aniadir(Tanque playera){
-        addObject(playera, -1, -1);
+    
+    //aniade los actores al mundo
+    public void aniadir(Tanque player){
+        addObject(player, -1, -1);
     }
-    public void aniadir(Enemy playera){
-        addObject(playera, 500, 500);
+    public void aniadir(Enemy enemy){
+        addObject(enemy, -1, -1);
     }
     
+    //setea la pocision del jugador con respecto a la direccion de donde venia
     public void setPlayerPosition(Tanque player, String direction) {
         if (direction.equals("left")) {
             player.setLocation(getWidth() - 1, player.getY());
@@ -27,18 +29,21 @@ public class Mapas extends World
         }
     }
     
-    public void setPlayerPosition(Enemy player, String direction) {
+    /*setea la pocision del jenemigo con respecto a la direccion de donde venia y con unas cords random para envitar que los
+    salgan en una fila 
+    */
+     
+    public void setEnemyPosition(Enemy enemy, String direction) {
         int randX = Greenfoot.getRandomNumber(1340);
         int randY = Greenfoot.getRandomNumber(670);
         if (direction.equals("left")) {
-            player.setLocation(getWidth() - 11, randY);
+            enemy.setLocation(getWidth() - 11, randY);
         } else if (direction.equals("right")) {
-            player.setLocation(11, randY);
+            enemy.setLocation(11, randY);
         } else if (direction.equals("up")) {
-            player.setLocation(randX, getHeight() - 11);
+            enemy.setLocation(randX, getHeight() - 11);
         } else if (direction.equals("down")) {
-            player.setLocation(randX, 11);
+            enemy.setLocation(randX, 11);
         }
     }
-    
 }

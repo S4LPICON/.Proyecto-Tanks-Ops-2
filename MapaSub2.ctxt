@@ -2,7 +2,7 @@
 comment0.target=MapaSub2
 comment1.params=
 comment1.target=MapaSub2()
-comment2.params=awebado
+comment2.params=player
 comment2.target=MapaSub2(Tanque)
 comment3.params=
 comment3.target=void\ AniadirObjetos()

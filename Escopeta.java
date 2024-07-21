@@ -1,11 +1,12 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; 
 
-/**
- * Write a description of class Escopeta here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+
+
+
+// EN DESARROLLO NO SE PUEDE USAR AUN
+
+
+
 public class Escopeta extends Arma
 {
     public Escopeta(Tanque xda,TextBoxManager txtBoxa, int municionInicial, int bombasinicial){
@@ -15,7 +16,6 @@ public class Escopeta extends Arma
         
     public void act()
     {
-        // Add your action code here.
         super.act();
     }
     

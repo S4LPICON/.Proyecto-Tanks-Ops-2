@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MunicionesBombs extends HUID
 {
     public MunicionesBombs(){
-        setImage("HUID/municionBombs.png");  // Asegúrate de tener una imagen de bala llamada "bullet.png"
+        setImage("HUID/municionBombs.png"); 
     }
     public void act()
     {

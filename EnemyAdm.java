@@ -2,16 +2,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * Write a description of class EnemyAdm here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+
 public class EnemyAdm extends Actor
 {
     private ArrayList<Enemy> listEnemy = new ArrayList<>();
-    private int enemys = 500; // Máximo de zombies activos
+    private int enemys = 500; // Máximo de zombies que pueden haber en el mundo
     private World name;
     private Tanque player;
     
@@ -26,23 +21,21 @@ public class EnemyAdm extends Actor
     private boolean coolDownRonda = false;
     private int rondasCooldown = 0;
     
-    public EnemyAdm(Tanque playera){
-        player = playera;
-        ronda =1;
+    public EnemyAdm(Tanque player){
+        this.player = player;
+        ronda =1; // podria modificar si quiero empezar en otra ronda
     }
     
     public void act() {
-        getWorld().showText(""+listEnemy.size(), 500,500);
-        
-        System.out.println(listEnemy.size());
-        System.out.println(ronda);
         
         if(listEnemy.size() <1){
-            
             coolDownRonda = true;
             iniciarJuego();
         }
+        
         Iterator<Enemy> iterator = listEnemy.iterator();
+        
+        //encargado de mover a todos los zombies 
         while (iterator.hasNext()) {
             Enemy x = iterator.next();
             if (x != null) {
@@ -58,10 +51,10 @@ public class EnemyAdm extends Actor
     public void iniciarJuego(){
         if (coolDownRonda) {
             rondasCooldown++;
-            if (rondasCooldown >= 40) {//240
+            if (rondasCooldown >= 240) {//240
                 int cantidadEnemigos = baseCantidad + (ronda + factorIncremento);
-                int vidaEnemigos = vidaBase + (ronda * 4); // Incremento de vida por ronda
-                int dañoEnemigos = dañoBase + (ronda * 2); // Incremento de daño por ronda
+                int vidaEnemigos = vidaBase + (ronda * 2); // Incremento de vida por ronda
+                int dañoEnemigos = dañoBase + ronda ; // Incremento de daño por ronda
                 ronda++;
                 for (int i = 0; i < cantidadEnemigos; i++) {
                     Zombie enemigo = new Zombie(player, this, vidaEnemigos, 1);
@@ -112,9 +105,6 @@ public class EnemyAdm extends Actor
     
     public void removeEnemy(Enemy zombie) {
         getWorld().removeObject(zombie); // Elimina el zombie del mundo
-        System.out.println("zombie eliminado");
         listEnemy.remove(zombie); // Elimina el zombie de la lista
-        // Genera un nuevo zombie para mantener el máximo de 15 zombies activos
-        //spawnRandomZombie();
     }
 }

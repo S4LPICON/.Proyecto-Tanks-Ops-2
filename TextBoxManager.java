@@ -1,4 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; 
 
 public class TextBoxManager extends Actor {
     private int score = 0;
@@ -29,17 +29,13 @@ public class TextBoxManager extends Actor {
         world.addObject(scoreTextBox, 170, 643);  // Ajusta la posición según sea necesario
         world.addObject(armsTextBox, 1267, 601);  // Ajusta la posición según sea necesario1267
         world.addObject(bombsTextBox, 1270, 650); // Ajusta la posición según sea necesario
-        world.addObject(roundsTextBox, 1278, 69); // Ajusta la posición según sea necesario
+        world.addObject(roundsTextBox, 1243, 63); // Ajusta la posición según sea necesario
         
         
         updateScoreBox();
         updateArmsBox();
         updateBombsBox();
         updateRoundsBox();
-    }
-
-    public void act() {
-        // Aquí puedes agregar cualquier código que necesites ejecutar en cada ciclo de actualización
     }
 
     public void setScore(int score) {
@@ -61,7 +57,7 @@ public class TextBoxManager extends Actor {
         this.round = round;
         updateRoundsBox();
     }
-
+    
     private void updateScoreBox() {
         GreenfootImage scoreBox = new GreenfootImage(200, 30);
         scoreBox.setColor(backgroundColor);

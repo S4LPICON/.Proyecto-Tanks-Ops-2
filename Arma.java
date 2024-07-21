@@ -6,14 +6,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version 1.0
  */
 public abstract class Arma extends Actor {
-    protected int municion;
+    protected int municion; // la municion
     private int rotationSpeed = 3;  // Velocidad de rotación del cañón
-    private int bombas;
+    private int bombas; // las bombas
+    
+    private int munMax; // maximo de municion
+    private int bombMax; //maximo de bombas
+    
     protected Tanque xd;
     protected boolean isRecoiling = false;  // Bandera para controlar el estado de retroceso
-    protected boolean isRecoiling1 = false;  // Bandera para controlar el estado de retroceso
+    protected boolean isRecoiling1 = false;  // Bandera para controlar el estado de retroceso de la mina
     protected int recoilStep = 0;  // Contador de pasos de retroceso
-    private TextBoxManager txtBox;
+    private TextBoxManager txtBox; //el encargado de los textos en pantalla
     
     private Mira crosshair = new Mira();  // Objeto crosshair
    
@@ -23,7 +27,8 @@ public abstract class Arma extends Actor {
     private boolean isPlayingSound = false; // Estado del sonido
     
     public Arma(Tanque xda,TextBoxManager txtBoxa,int municionInicial, int bombasinicial) {
-        
+        this.munMax = municionInicial;
+        this.bombMax = bombasinicial;
         this.municion = municionInicial;
         this.bombas = bombasinicial;
         this.xd = xda;
@@ -36,56 +41,64 @@ public abstract class Arma extends Actor {
         this.municion = municionInicial;
         this.bombas = bombasinicial;
         this.xd = xda;
-        
+        this.munMax = municionInicial;
+        this.bombMax = bombasinicial;
     }
     
+    
+    //encargado de setear la municion del tanque al maximo
+    public void munMax(){
+        this.municion = this.munMax;
+        this.bombas = this.bombMax;
+    }
+    
+    
+    //controla el movimineto del canion para que este pueda girar
     private void controlCanion() {
-        // Actualiza la posición del crosshair para que esté siempre a 200 píxeles frente al cañón
+        // Actualiza la posición del crosshair para que esté siemprefrente al cañón
         double angleRadians = Math.toRadians(getRotation());  // Convierte el ángulo de rotación del cañón a radianes
         int crosshairX = (int) (getX() + 400 * Math.cos(angleRadians));  // Calcula la posición X del crosshair
         int crosshairY = (int) (getY() + 400 * Math.sin(angleRadians));  // Calcula la posición Y del crosshair
         crosshair.setLocation(crosshairX, crosshairY);
-        boolean isTurning = false;
         
         if (Greenfoot.isKeyDown("left")) {
-            turn(-rotationSpeed);  // Gira el cañón hacia la izquierda
+            turn(-rotationSpeed);  // Gira el canionn hacia la izquierda
             crosshair.turn(-rotationSpeed);  // Gira el crosshair junto con el cañón
-            isTurning = true;
         }
         if (Greenfoot.isKeyDown("right")) {
-            turn(rotationSpeed);  // Gira el cañón hacia la derecha
+            turn(rotationSpeed);  // Gira el canionn hacia la derecha
             crosshair.turn(rotationSpeed);  // Gira el crosshair junto con el cañón
-            isTurning = true;
         }
-
-       // if (isTurning) {
-       //     if (!isPlayingSound) {
-        //        //Greenfoot.playSound("tank-turret-rotate.wav");
-        //        isPlayingSound = true;
-            //            }
-          //  } else {
-           // isPlayingSound = false;
     }
     
     
     public void act() {
+        actuTextos(); // actualiza los textos
+        controlCanion();  // Controla la rotación del cañón
+        shootManager(); // maneja las pulsaciones de las teclas de disparo
+    }
+    
+    public void shootManager(){
+        if (Greenfoot.isKeyDown("space") && !isRecoiling) {
+            disparar();  // Dispara al presionar la tecla Espacio
+        }
+        if (Greenfoot.isKeyDown("shift") && !isRecoiling) {
+            bomba();  // deja una mina al presionar shift
+        }
+        handleRecoil();  // Maneja la animación de retroceso
+        handleRecoil1(); // retroceso para las minas
+    }
+    
+    public void actuTextos(){
+        //encargado de los texto
         txtBox.setArms(getMunicion()); // setear en el contador las balas que tiene el jugador
         txtBox.setBombs(getBombas()); // el contador de bombas
         txtBox.setScore(xd.getPuntuacion());
         txtBox.setRound(((EnemyAdm.ronda)-1));
-        controlCanion();  // Controla la rotación del cañón
-        if (Greenfoot.isKeyDown("space") && !isRecoiling) {
-            disparar();  // Dispara al presionar la tecla Espacio
-            
-        }
-        if (Greenfoot.isKeyDown("shift") && !isRecoiling) {
-            bomba();  // deja una mina al presionar shift
-            
-        }
-        handleRecoil();  // Maneja la animación de retroceso
-        handleRecoil1();
     }
-  
+    
+    
+    //cooldown y retroceso de los disparos
     private void handleRecoil() {
         if (isRecoiling) {
             recoilStep++;
@@ -99,6 +112,7 @@ public abstract class Arma extends Actor {
         }
     }
     
+    //cooldown de las minas
     private void handleRecoil1() {
         if (isRecoiling1) {
             recoilStep++;
@@ -108,9 +122,11 @@ public abstract class Arma extends Actor {
         }
     }
     
+    
     public void addedToWorld(World world) {
-        getWorld().addObject(crosshair, getX() + 200, getY());  // Agrega el crosshair al mundo, ajusta la posición según sea necesario
+        getWorld().addObject(crosshair, getX() + 200, getY());  // Agrega el crosshair al mundo
     }  
+    
     
     public int getMunicion() {
         return municion;
@@ -138,6 +154,7 @@ public abstract class Arma extends Actor {
             crearProyectil();
         }
     }
+    
     public void bomba() {
         if (bombas > 0 && !isRecoiling1) {
             bombas--;
@@ -151,7 +168,6 @@ public abstract class Arma extends Actor {
         int xDelantero = getX() + (int) (Math.cos(Math.toRadians(xd.getRotation())) * -90); // 20 es la distancia desde el centro del tanque al frente
         int yDelantero = getY() + (int) (Math.sin(Math.toRadians(xd.getRotation())) * -90); // 20 es la distancia desde el centro del tanque al frente
         
-        // Aquí deberías colocar el código para crear o mover el objeto detrás del tanque
         getWorld().addObject(bomb, xDelantero, yDelantero);
         
         // Asegúrate de que el tanque siempre se añade después de la mina
